@@ -1,0 +1,13 @@
+Django==4.2.6 #Web Framework
+djangorestframework==3.14.0 #Flex web API for building web apps with Django
+django-environ==0.11.2 #This allows you to configure environmental variables via Django applications
+django-filter==23.3 #Allows filtering support for rest framework
+django-autoslug==1.9.9 #Automated slug field for Django
+django-countries==7.5.1 #This provides some countries and fixtures of top level countries data.
+Pillow==10.1.0 #Image library
+django-phonenumber-field==7.2.0
+phonenumbers==8.13.23
+psycopg2-binary==2.9.9 #PostgreSQL data for Python
+flake8==6.1.0 #This combines Pip8 & PyFlakes
+black==23.1a1
+isort==5.12.0
