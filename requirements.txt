@@ -11,3 +11,6 @@ psycopg2-binary==2.9.9 #PostgreSQL data for Python
 flake8==6.1.0 #This combines Pip8 & PyFlakes
 black==23.1a1
 isort==5.12.0
+djoser==2.2.0
+djangorestframework-simplejwt==5.3.0
+pyJWT==2.8.0
