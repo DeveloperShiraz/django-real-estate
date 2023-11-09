@@ -54,7 +54,8 @@ class ProfileSerializer(serializers.ModelSerializer):
         if instance.top_agent:
             representation["top_agent"] = True
         return representation
-    
+
+
 class UpdateProfileSerializer(serializers.ModelSerializer):
     country = CountryField(name_only=True)
 

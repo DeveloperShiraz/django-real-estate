@@ -1,7 +1,8 @@
 from pathlib import Path
+
 import environ
 
-env = environ.Env(DEBUG=(bool,False))
+env = environ.Env(DEBUG=(bool, False))
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent.parent
@@ -89,8 +90,6 @@ WSGI_APPLICATION = "real_estate.wsgi.application"
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
 
-
-
 # Password validation
 # https://docs.djangoproject.com/en/4.2/ref/settings/#auth-password-validators
 
@@ -136,7 +135,7 @@ MEDIA_ROOT = BASE_DIR / "mediafiles"
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
-AUTH_USER_MODEL = 'users.User'
+AUTH_USER_MODEL = "users.User"
 
 import logging
 import logging.config
@@ -156,15 +155,15 @@ REST_FRAMEWORK = {
 from datetime import timedelta
 
 SIMPLE_JWT = {
-    "AUTH_HEADER_TYPES":(
+    "AUTH_HEADER_TYPES": (
         "Bearer",
         "JWT",
     ),
-    'ACCESS_TOKEN_LIFETIME': timedelta(minutes=120),
-    'REFRESH_TOKEN_LIFETIME': timedelta(days=1),
-    'SIGNING_KEY': env('SIGNING_KEY'),
-    'AUTH_HEADER_NAME': 'HTTP_AUTHORIZATION',
-    'AUTH_TOKEN_CLASSES':('rest_framework_simplejwt.tokens.AccessToken',),
+    "ACCESS_TOKEN_LIFETIME": timedelta(minutes=120),
+    "REFRESH_TOKEN_LIFETIME": timedelta(days=1),
+    "SIGNING_KEY": env("SIGNING_KEY"),
+    "AUTH_HEADER_NAME": "HTTP_AUTHORIZATION",
+    "AUTH_TOKEN_CLASSES": ("rest_framework_simplejwt.tokens.AccessToken",),
 }
 
 DJOSER = {
@@ -187,34 +186,34 @@ DJOSER = {
     },
 }
 
-logging.config.dictConfig({
-    "version": 1,
-    "disable_existing_loggers": False,
-    "formatters" :{
-        "console":{
-            "format": "%(asctime)s %(name)-12s %(levelname)-8s %(message)s",
+logging.config.dictConfig(
+    {
+        "version": 1,
+        "disable_existing_loggers": False,
+        "formatters": {
+            "console": {
+                "format": "%(asctime)s %(name)-12s %(levelname)-8s %(message)s",
+            },
+            "file": {"format": "%(asctime)s %(name)-12s %(levelname)-8s %(message)s"},
+            "django.server": DEFAULT_LOGGING["formatters"]["django.server"],
         },
-        "file":{"format": "%(asctime)s %(name)-12s %(levelname)-8s %(message)s"},
-        "django.server":DEFAULT_LOGGING["formatters"]["django.server"],
-    },
-    "handlers":{
-        "console":{
-            "class":"logging.StreamHandler",
-            "formatter":"console",
+        "handlers": {
+            "console": {
+                "class": "logging.StreamHandler",
+                "formatter": "console",
+            },
+            "file": {
+                "level": "INFO",
+                "class": "logging.FileHandler",
+                "formatter": "file",
+                "filename": "logs/real_estate.log",
+            },
+            "django.server": DEFAULT_LOGGING["handlers"]["django.server"],
         },
-        "file":{
-            "level":"INFO",
-            "class":"logging.FileHandler",
-            "formatter":"file",
-            "filename":"logs/real_estate.log",
+        "loggers": {
+            "": {"level": "INFO", "handlers": ["console", "file"], "propagate": False},
+            "apps": {"level": "INFO", "handlers": ["console"], "propagate": False},
+            "django.server": DEFAULT_LOGGING["loggers"]["django.server"],
         },
-        "django.server": DEFAULT_LOGGING["handlers"]["django.server"],
-    },
-    "loggers": {
-        "":{"level":"INFO", "handlers":["console","file"],"propagate":False},
-        "apps":{
-            "level":"INFO","handlers":["console"],"propagate":False
-        },
-        "django.server": DEFAULT_LOGGING["loggers"]["django.server"],
-    },
-})
+    }
+)
