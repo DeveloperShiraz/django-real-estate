@@ -1,0 +1,49 @@
+version: '3.9'
+
+services:
+  api:
+    build:
+      context: .
+      dockerfile: ./docker/local/django/Dockerfile
+    #This basically means. Look at the start script where the docker file is located.
+    #So, this runs "start" file as it is located in the same directory as dockerfile.
+    command: /start
+    #The volume is used to map apps and files from the host to the container.
+    #So that if we change the code in the host. The docker container also changes.
+    volumes:
+      - .:/app #This is for the app.
+      #This is for the static files.
+      - static_volume:/app/staticfiles
+      #Double check your base.py setting files to see if you have mapped the staticfiles properly.
+      - media_volume:/app/mediafiles
+    ports:
+      - "8000:8000"
+    #This indicates that the
+    env_file:
+      - .env
+    depends_on:
+      - postgres-db
+    networks:
+      - estate-react
+  
+  postgres-db:
+    image: postgres:12.0-alpine
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data/
+    environment:
+      - POSTGRES_USER=${POSTGRES_USER}
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+      - POSTGRES_DB=${POSTGRES_DB}
+    networks:
+      - estate-react
+
+networks:
+  estate-react:
+    driver: bridge
+
+volumes:
+  postgres_data:
+  static_volume:
+  media_volume:

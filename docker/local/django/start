@@ -1,0 +1,12 @@
+#!/bin/bash
+
+#This means if any of the line in your code fails for any reason. The entire shell script fails.
+set -o errexit
+#This means fail exit. If one of your pipe commands fail.
+set -o pipefail
+#This means nounset will exit if any of the variables is not set.
+set -o nounset
+
+python3 manage.py migrate --no-input
+python3 manage.py collectstatic --no-input
+python3 manage.py runserver 0.0.0.0:8000
